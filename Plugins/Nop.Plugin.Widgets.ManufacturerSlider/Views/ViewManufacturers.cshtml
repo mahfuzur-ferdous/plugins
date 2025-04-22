@@ -1,0 +1,76 @@
+﻿@model IList<string>
+
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<style>
+	/* Swiper container and slide styling */
+	.manufacturer-swiper-container {
+		width: 100%;
+		padding: 20px 0;
+	}
+
+	.swiper-slide {
+		text-align: center;
+	}
+
+	.manufacturer-item img {
+		height : 150px;
+		widgh : 150px;
+		max-width: 100%;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		padding: 5px;
+		background-color: #fff3e0;
+	}
+</style>
+
+<!-- Swiper HTML -->
+<div class="manufacturer-swiper-container swiper">
+	<div class="swiper-wrapper">
+		@foreach (var pictureUrl in Model)
+		{
+			<div class="swiper-slide manufacturer-item">
+				<img src="@pictureUrl" alt="Manufacturer" />
+			</div>
+		}
+	</div>
+
+	<!-- Navigation buttons -->
+	<div class="swiper-button-prev"></div>
+	<div class="swiper-button-next"></div>
+
+	<!-- Pagination -->
+	<div class="swiper-pagination"></div>
+</div>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		new Swiper('.manufacturer-swiper-container', {
+			slidesPerView: 3,
+			spaceBetween: 20,
+			loop: true,
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			},
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+			},
+			autoplay: {
+				delay: 3000,
+				disableOnInteraction: false,
+			},
+			breakpoints: {
+				640: { slidesPerView: 1 },
+				768: { slidesPerView: 2 },
+				796: { slidesPerView: 3 },
+
+			}
+		});
+	});
+</script>

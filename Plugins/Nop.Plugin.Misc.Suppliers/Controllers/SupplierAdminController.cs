@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Plugin.Misc.Suppliers.Domain;
 using Nop.Plugin.Misc.Suppliers.Models;
 using Nop.Plugin.Misc.Suppliers.Services;
 using Nop.Services.Localization;
+using Nop.Services.Logging;
+using Nop.Services.Media;
 using Nop.Services.Messages;
 using Nop.Services.Security;
+using Nop.Services.Seo;
 using Nop.Web.Framework;
 using Nop.Web.Framework.Controllers;
 using Nop.Web.Framework.Models.Extensions;
@@ -21,33 +25,37 @@ namespace Nop.Plugin.Misc.Suppliers.Controllers
     [AutoValidateAntiforgeryToken]
     public class SupplierAdminController : BasePluginController
     {
+
         #region Fields
-
-        private readonly ILocalizationService _localizationService;
-        private readonly INotificationService _notificationService;
-        private readonly IPermissionService _permissionService;
-        private readonly ISupplierService _supplierService;
-
-        // Define a constant for supplier permission
-        private const string MANAGE_SUPPLIERS_PERMISSION = "ManageSuppliers";
-
+        protected readonly ISupplierService _supplierService;
+        protected readonly ICustomerActivityService _customerActivityService;
+        protected readonly ILocalizationService _localizationService;
+        protected readonly INotificationService _notificationService;
+        protected readonly IPermissionService _permissionService;
+        protected readonly IPictureService _pictureService;
+        protected readonly IUrlRecordService _urlRecordService;
         #endregion
 
         #region Ctor
-
         public SupplierAdminController(
+            ISupplierService supplierService,
+            ICustomerActivityService customerActivityService,
             ILocalizationService localizationService,
             INotificationService notificationService,
             IPermissionService permissionService,
-            ISupplierService supplierService)
+            IPictureService pictureService,
+            IUrlRecordService urlRecordService)
         {
+            _supplierService = supplierService;
+            _customerActivityService = customerActivityService;
             _localizationService = localizationService;
             _notificationService = notificationService;
             _permissionService = permissionService;
-            _supplierService = supplierService;
+            _pictureService = pictureService;
+            _urlRecordService = urlRecordService;
         }
-
         #endregion
+      
 
         #region Methods
 
@@ -99,17 +107,16 @@ namespace Nop.Plugin.Misc.Suppliers.Controllers
 
         public virtual async Task<IActionResult> Create()
         {
-            
-
+            //prepare model
             var model = new SupplierModel();
             return View("~/Plugins/Misc.Suppliers/Views/SupplierAdmin/Create.cshtml", model);
         }
 
         [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
-        public virtual async Task<IActionResult> Create(SupplierModel model, bool continueEditing)
+        [FormValueRequired("save", "save-continue")]
+        
+        public virtual async Task<IActionResult> Create(SupplierModel model, bool continueEditing, IFormCollection form)
         {
-            
-
             if (ModelState.IsValid)
             {
                 var supplier = new Domain.Supplier
@@ -122,17 +129,21 @@ namespace Nop.Plugin.Misc.Suppliers.Controllers
 
                 await _supplierService.InsertSupplierAsync(supplier);
 
+                //activity log
+                await _customerActivityService.InsertActivityAsync("AddNewSupplier",
+                    string.Format(await _localizationService.GetResourceAsync("ActivityLog.AddNewSupplier"), supplier.Id), supplier);
+
                 _notificationService.SuccessNotification(await _localizationService.GetResourceAsync("Plugins.Misc.Suppliers.Added"));
 
-                if (continueEditing)
-                    return RedirectToAction("Edit", new { id = supplier.Id });
+                if (!continueEditing)
+                    return RedirectToAction("List");
 
-                return RedirectToAction("List");
+                return RedirectToAction("Edit", new { id = supplier.Id });
             }
 
+            //if we got this far, something failed, redisplay form
             return View("~/Plugins/Misc.Suppliers/Views/SupplierAdmin/Create.cshtml", model);
         }
-
         public virtual async Task<IActionResult> Edit(int id)
         {
             

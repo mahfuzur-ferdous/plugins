@@ -2,12 +2,9 @@
 @addTagHelper *, Nop.Web.Framework
 @using Nop.Plugin.Misc.Suppliers.Models
 @using Nop.Web.Framework.Extensions
-
-
 @model SupplierModel
-
 <div class="card-body">
-	@(await Html.LocalizedEditorAsync<SupplierModel,SupplierLocalizedModel>("supplier-info-localized",
+	@(await Html.LocalizedEditorAsync<SupplierModel, SupplierLocalizedModel>("supplier-info-localized",
 	@<div>
 		<div class="form-group row">
 			<div class="col-md-3">
@@ -18,6 +15,16 @@
 				<span asp-validation-for="@Model.Locales[item].Name"></span>
 			</div>
 		</div>
+		<div class="form-group row">
+			<div class="col-md-3">
+				<nop-label asp-for="@Model.Locales[item].Description" />
+			</div>
+			<div class="col-md-9">
+				<nop-editor asp-for="@Model.Locales[item].Description" asp-template="RichEditor" />
+				<span asp-validation-for="@Model.Locales[item].Description"></span>
+			</div>
+		</div>
+		<input type="hidden" asp-for="@Model.Locales[item].LanguageId" />
 	</div>,
 	@<div>
 		<div class="form-group row">
@@ -29,26 +36,46 @@
 				<span asp-validation-for="Name"></span>
 			</div>
 		</div>
-
 		<div class="form-group row">
 			<div class="col-md-3">
-				<nop-label asp-for="Email" />
+				<nop-label asp-for="Description" />
 			</div>
 			<div class="col-md-9">
-				<nop-editor asp-for="Description" />
+				<nop-editor asp-for="Description" asp-template="RichEditor" />
 				<span asp-validation-for="Description"></span>
 			</div>
 		</div>
-
-		<div class="form-group row">
-			<div class="col-md-3">
-				<nop-label asp-for="Active" />
-			</div>
-			<div class="col-md-9">
-				<nop-editor asp-for="CreatedOn" />
-				<span asp-validation-for="CreatedOn"></span>
-			</div>
-		</div>
-
 	</div>))
+
+	<div class="form-group row">
+		<div class="col-md-3">
+			<nop-label asp-for="Email" />
+		</div>
+		<div class="col-md-9">
+			<nop-editor asp-for="Email" asp-required="true" />
+			<span asp-validation-for="Email"></span>
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<div class="col-md-3">
+			<nop-label asp-for="Active" />
+		</div>
+		<div class="col-md-9">
+			<nop-editor asp-for="Active" />
+			<span asp-validation-for="Active"></span>
+		</div>
+	</div>
+
+	@* <div class="form-group row advanced-setting"> *@
+	@* 	<div class="col-md-3"> *@
+	@* 		<nop-label asp-for="PictureId" /> *@
+	@* 	</div> *@
+	@* 	<div class="col-md-9"> *@
+	@* 		<nop-editor asp-for="PictureId" /> *@
+	@* 		<span asp-validation-for="PictureId"></span> *@
+	@* 	</div> *@
+	@* </div> *@
+
+
 </div>
