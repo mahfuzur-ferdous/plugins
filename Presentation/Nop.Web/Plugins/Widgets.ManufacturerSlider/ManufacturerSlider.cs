@@ -1,5 +1,4 @@
-﻿using System;
-using Nop.Plugin.Widgets.ManufacturerSlider.Components;
+﻿using Nop.Plugin.Widgets.ManufacturerSlider.Components;
 using Nop.Services.Cms;
 using Nop.Services.Plugins;
 
@@ -31,18 +30,12 @@ public class ManufacturerSlider : BasePlugin, IWidgetPlugin
     {
         return Task.FromResult<IList<string>>(new List<string> { "home_page_before_categories" });
     }
-
     public override async Task InstallAsync()
     {
-        //Logic during installation goes here...
-
         await base.InstallAsync();
     }
-
     public override async Task UninstallAsync()
     {
-        //Logic during uninstallation goes here...
-
         await base.UninstallAsync();
     }
 }

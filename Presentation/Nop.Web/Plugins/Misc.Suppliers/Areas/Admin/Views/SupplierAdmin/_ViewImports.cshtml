@@ -1,0 +1,17 @@
+﻿@inherits Nop.Web.Framework.Mvc.Razor.NopRazorPage<TModel>
+@using Nop.Web.Framework.UI
+@using Nop.Web.Areas.Admin.Components
+@inject INopHtmlHelper NopHtml
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@*https://stackoverflow.com/questions/42544961/asp-net-core-custom-input-tag-helper-rendering-duplicate-checkboxes*@
+@removeTagHelper Microsoft.AspNetCore.Mvc.TagHelpers.InputTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Nop.Web.Framework
+@using Nop.Core
+@using Nop.Plugin.Misc.Suppliers.Areas.Admin.Models
+@inject IWorkContext workContext
+@using Nop.Services.Common
+@using Nop.Web.Framework.Models.DataTables
+@using Nop.Web.Framework.Extensions
+@using Nop.Web.Framework.UI
+@inject INopHtmlHelper NopHtml
+@inject IGenericAttributeService genericAttributeService

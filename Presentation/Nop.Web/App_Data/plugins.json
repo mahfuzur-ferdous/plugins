@@ -101,6 +101,10 @@
     },
     {
       "SystemName": "Misc.Suppliers",
+      "Version": "4.80.5"
+    },
+    {
+      "SystemName": "Widgets.ManufacturerSlider",
       "Version": "4.80.3"
     }
   ],

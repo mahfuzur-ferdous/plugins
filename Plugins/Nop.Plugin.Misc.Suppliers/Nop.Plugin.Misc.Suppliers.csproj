@@ -16,10 +16,10 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Plugin.json" />
-    <None Remove="Views\SupplierAdmin\Create.cshtml" />
-    <None Remove="Views\SupplierAdmin\Edit.cshtml" />
-    <None Remove="Views\SupplierAdmin\List.cshtml" />
-    <None Remove="Views\SupplierAdmin\_CreateOrUpdate.info.cshtml" />
+    <None Remove="Areas\Admin\Views\SupplierAdmin\Create.cshtml" />
+    <None Remove="Areas\Admin\Views\SupplierAdmin\Edit.cshtml" />
+    <None Remove="Areas\Admin\Views\SupplierAdmin\List.cshtml" />
+    <None Remove="Areas\Admin\Views\SupplierAdmin\_CreateOrUpdate.info.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(SolutionDir)\Presentation\Nop.Web.Framework\Nop.Web.Framework.csproj" />
@@ -33,39 +33,42 @@
     <Content Include="Plugin.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\SupplierAdmin\Create.cshtml">
+    <Content Include="Areas\Admin\Views\SupplierAdmin\Create.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\SupplierAdmin\Edit.cshtml">
+    <Content Include="Areas\Admin\Views\SupplierAdmin\Edit.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\SupplierAdmin\_CreateOrUpdate.cshtml">
+    <Content Include="Areas\Admin\Views\SupplierAdmin\_CreateOrUpdate.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\SupplierAdmin\List.cshtml">
+    <Content Include="Areas\Admin\Views\SupplierAdmin\List.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\SupplierAdmin\_CreateOrUpdate.info.cshtml">
+    <Content Include="Areas\Admin\Views\SupplierAdmin\_CreateOrUpdate.info.cshtml">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\SupplierAdmin\_ViewImports.cshtml">
+    <Content Include="Areas\Admin\Views\SupplierAdmin\_ViewImports.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Data\SupplierMap.cs">
+    <Compile Update="Areas\Admin\Domain\Supplier.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="Domain\Supplier.cs">
+    <Compile Update="Areas\Admin\Infrastructure\Mapper\SupplierMap.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="EventConsumer.cs">
+    <Compile Update="Areas\Admin\Infrastructure\EventConsumer.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="Models\SupplierSearchModel.cs">
+    <Compile Update="Areas\Admin\Models\SupplierLocalizedModel.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Update="Areas\Admin\Models\SupplierSearchModel.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Update="SuppliersPlugin.cs">

@@ -1,7 +1,4 @@
-﻿// Nop.Plugin.Misc.Suppliers/SuppliersPlugin.cs
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Nop.Core;
+﻿using Nop.Core;
 using Nop.Services.Common;
 using Nop.Services.Configuration;
 using Nop.Services.Localization;
@@ -62,9 +59,11 @@ namespace Nop.Plugin.Misc.Suppliers
                 ["Plugins.Misc.Suppliers.Added"] = "The supplier has been added successfully.",
                 ["Plugins.Misc.Suppliers.Updated"] = "The supplier has been updated successfully.",
                 ["Plugins.Misc.Suppliers.Deleted"] = "The supplier has been deleted successfully.",
-                ["Plugins.Misc.Suppliers.List.SearchName"] = "Supplier name",
-                ["Plugins.Misc.Suppliers.List.SearchEmail"] = "Supplier email",
-                ["Plugins.Misc.Suppliers.Menu.Suppliers"] = "Suppliers"
+                ["Plugins.Misc.Suppliers.List.SearchName"] = "Supplier Name",
+                ["Plugins.Misc.Suppliers.List.SearchEmail"] = "Supplier Email",
+                ["Plugins.Misc.Suppliers.Menu.Suppliers"] = "Suppliers",
+                ["Plugins.Misc.Suppliers.Fields.Email.Hint"] = "A Valid Email",
+                ["Plugins.Misc.Suppliers.List.SearchName.Hint"] = "Supplier's Name"
             });
 
             await base.InstallAsync();
@@ -75,7 +74,6 @@ namespace Nop.Plugin.Misc.Suppliers
         /// </summary>
         public override async Task UninstallAsync()
         {
-            //locales
             await _localizationService.DeleteLocaleResourcesAsync("Plugins.Misc.Suppliers");
 
             await base.UninstallAsync();
