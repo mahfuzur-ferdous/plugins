@@ -18,10 +18,10 @@ public class NopStartup : INopStartup
     {
         services.AddScoped<ISupplierService, SupplierService>();
         services.AddScoped<ISupplierModelFactory, SupplierModelFactory>();
-        services.Configure<RazorViewEngineOptions>(options =>
-        {
-            options.ViewLocationExpanders.Add(new ViewLocationExpander());
-        });
+        //services.Configure<RazorViewEngineOptions>(options =>
+        //{
+        //    options.ViewLocationExpanders.Add(new ViewLocationExpander());
+        //});
     }
 
     /// <summary>

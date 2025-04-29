@@ -37,7 +37,9 @@
 								<div class="col-md-6">
 									<div class="form-group row">
 										<div class="col-md-4">
-											<nop-label asp-for="SearchName" asp-resource-key="@T("Admin.Suppliers.List.SearchName") asp-help-text="Admin.Suppliers.List.SearchName.Hint" />
+											<nop-label asp-for="SearchName"
+													   text="@T("Admin.Suppliers.List.SearchName")"
+													   asp-help-text="Admin.Suppliers.List.SearchName.Hint" />
 										</div>
 										<div class="col-md-8">
 											<nop-editor asp-for="SearchName" />

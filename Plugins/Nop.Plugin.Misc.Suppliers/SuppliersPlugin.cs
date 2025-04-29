@@ -1,84 +1,99 @@
 ﻿using Nop.Core;
+using Nop.Data;
+using Nop.Plugin.Misc.Suppliers.Areas.Admin.Components;
+using Nop.Plugin.Misc.Suppliers.Areas.Admin.Utilities;
+using Nop.Services.Cms;
 using Nop.Services.Common;
-using Nop.Services.Configuration;
 using Nop.Services.Localization;
 using Nop.Services.Plugins;
+using Nop.Services.Security;
+using Nop.Web.Framework.Infrastructure;
 
-namespace Nop.Plugin.Misc.Suppliers
+namespace Nop.Plugin.Misc.Suppliers;
+
+public class SupplierPlugin : BasePlugin, IMiscPlugin, IWidgetPlugin
 {
-    /// <summary>
-    /// Represents the suppliers plugin
-    /// </summary>
-    public class SuppliersPlugin : BasePlugin, IMiscPlugin
+    private readonly IPermissionService _permissionService;
+    private readonly ILocalizationService _localizationService;
+    private readonly INopDataProvider _dataProvider;
+    private readonly IWebHelper _webHelper;
+
+    public SupplierPlugin(
+        IPermissionService permissionService,
+        ILocalizationService localizationService,
+        INopDataProvider dataProvider,
+        IWebHelper webHelper)
     {
-        #region Fields
+        _permissionService = permissionService;
+        _localizationService = localizationService;
+        _dataProvider = dataProvider;
+        _webHelper = webHelper;
+    }
 
-        private readonly ILocalizationService _localizationService;
-        private readonly ISettingService _settingService;
-        private readonly IWebHelper _webHelper;
+    public override async Task InstallAsync()
+    {
+        // Add localization resources
+        var resources = SupplierLocaleResources.GetAll();
+        await _localizationService.AddOrUpdateLocaleResourceAsync(resources);
 
-        #endregion
+        // Create database tables if needed (you might want to add this)
+        // await _dataProvider.ExecuteNonQueryAsync("CREATE TABLE IF NOT EXISTS [Supplier] (...)");
 
-        #region Ctor
+        await base.InstallAsync();
+    }
 
-        public SuppliersPlugin(
-            ILocalizationService localizationService,
-            ISettingService settingService,
-            IWebHelper webHelper)
+    public override async Task UninstallAsync()
+    {
+        // Delete localization resources
+        var resourceKeys = SupplierLocaleResources.GetAll().Keys.ToArray();
+        await _localizationService.DeleteLocaleResourcesAsync(resourceKeys);
+
+        // Drop tables
+        await _dataProvider.ExecuteNonQueryAsync("DROP TABLE IF EXISTS [Supplier]");
+
+        await base.UninstallAsync();
+    }
+
+    public override async Task UpdateAsync(string currentVersion, string targetVersion)
+    {
+        var current = Version.Parse(currentVersion);
+        var target = Version.Parse(targetVersion);
+
+        if (current < target)
         {
-            _localizationService = localizationService;
-            _settingService = settingService;
-            _webHelper = webHelper;
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Gets a configuration page URL
-        /// </summary>
-        public override string GetConfigurationPageUrl()
-        {
-            return $"{_webHelper.GetStoreLocation()}Admin/SupplierAdmin/List";
-        }
-
-        /// <summary>
-        /// Install the plugin
-        /// </summary>
-        public override async Task InstallAsync()
-        {
-            //locales
             await _localizationService.AddOrUpdateLocaleResourceAsync(new Dictionary<string, string>
             {
-                ["Plugins.Misc.Suppliers.Fields.Name"] = "Name",
-                ["Plugins.Misc.Suppliers.Fields.Email"] = "Email",
-                ["Plugins.Misc.Suppliers.Fields.Description"] = "Description",
-                ["Plugins.Misc.Suppliers.Fields.Active"] = "Active",
-                ["Plugins.Misc.Suppliers.Fields.CreatedOn"] = "Created on",
-                ["Plugins.Misc.Suppliers.Added"] = "The supplier has been added successfully.",
-                ["Plugins.Misc.Suppliers.Updated"] = "The supplier has been updated successfully.",
-                ["Plugins.Misc.Suppliers.Deleted"] = "The supplier has been deleted successfully.",
-                ["Plugins.Misc.Suppliers.List.SearchName"] = "Supplier Name",
-                ["Plugins.Misc.Suppliers.List.SearchEmail"] = "Supplier Email",
-                ["Plugins.Misc.Suppliers.Menu.Suppliers"] = "Suppliers",
-                ["Plugins.Misc.Suppliers.Fields.Email.Hint"] = "A Valid Email",
-                ["Plugins.Misc.Suppliers.List.SearchName.Hint"] = "Supplier's Name"
+                ["Admin.Suppliers.Fields.Email.Required"] = "Email is Required!"
             });
 
-            await base.InstallAsync();
+            // Add any schema updates if needed
         }
+    }
 
-        /// <summary>
-        /// Uninstall the plugin
-        /// </summary>
-        public override async Task UninstallAsync()
+    /// <summary>
+    /// Gets a value indicating whether to hide this plugin on the widget list page in the admin area
+    /// </summary>
+    public bool HideInWidgetList => false;
+
+    /// <summary>
+    /// Gets widget zones where this widget should be rendered
+    /// </summary>
+    /// <returns>Widget zones</returns>
+    public Task<IList<string>> GetWidgetZonesAsync()
+    {
+        return Task.FromResult<IList<string>>(new List<string>
         {
-            await _localizationService.DeleteLocaleResourcesAsync("Plugins.Misc.Suppliers");
+            AdminWidgetZones.ProductDetailsBlock
+        });
+    }
 
-            await base.UninstallAsync();
-        }
-
-        #endregion
+    /// <summary>
+    /// Gets a type of a view component for displaying widget
+    /// </summary>
+    /// <param name="widgetZone">Name of the widget zone</param>
+    /// <returns>View component type</returns>
+    public Type GetWidgetViewComponent(string widgetZone)
+    {
+        return typeof(SupplierSelectionViewComponent);
     }
 }

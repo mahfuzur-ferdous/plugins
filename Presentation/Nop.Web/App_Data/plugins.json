@@ -100,12 +100,12 @@
       "Version": "4.80.5"
     },
     {
-      "SystemName": "Misc.Suppliers",
-      "Version": "4.80.5"
-    },
-    {
       "SystemName": "Widgets.ManufacturerSlider",
       "Version": "4.80.3"
+    },
+    {
+      "SystemName": "Misc.Suppliers",
+      "Version": "4.80.7"
     }
   ],
   "PluginNamesToUninstall": [],

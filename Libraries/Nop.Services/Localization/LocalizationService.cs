@@ -71,9 +71,9 @@ public partial class LocalizationService : ILocalizationService
         var locales = await _lsrRepository.GetAllAsync(query =>
         {
             return from l in query
-                orderby l.ResourceName
-                where l.LanguageId == languageId
-                select l;
+                   orderby l.ResourceName
+                   where l.LanguageId == languageId
+                   select l;
         });
 
         return locales;
@@ -238,9 +238,9 @@ public partial class LocalizationService : ILocalizationService
         bool logIfNotFound = true)
     {
         var query = from lsr in _lsrRepository.Table
-            orderby lsr.ResourceName
-            where lsr.LanguageId == languageId && lsr.ResourceName == resourceName.ToLowerInvariant()
-            select lsr;
+                    orderby lsr.ResourceName
+                    where lsr.LanguageId == languageId && lsr.ResourceName == resourceName.ToLowerInvariant()
+                    select lsr;
 
         var localeStringResource = await query.FirstOrDefaultAsync();
 
@@ -263,9 +263,9 @@ public partial class LocalizationService : ILocalizationService
         bool logIfNotFound = true)
     {
         var query = from lsr in _lsrRepository.Table
-            orderby lsr.ResourceName
-            where lsr.LanguageId == languageId && lsr.ResourceName == resourceName.ToLowerInvariant()
-            select lsr;
+                    orderby lsr.ResourceName
+                    where lsr.LanguageId == languageId && lsr.ResourceName == resourceName.ToLowerInvariant()
+                    select lsr;
 
         var localeStringResource = query.FirstOrDefault();
 
@@ -331,9 +331,9 @@ public partial class LocalizationService : ILocalizationService
                 //we use no tracking here for performance optimization
                 //anyway records are loaded only for read-only operations
                 var query = from l in _lsrRepository.Table
-                    orderby l.ResourceName
-                    where l.LanguageId == languageId
-                    select l;
+                            orderby l.ResourceName
+                            where l.LanguageId == languageId
+                            select l;
 
                 return ResourceValuesToDictionary(await query.ToListAsync());
             });
@@ -356,9 +356,9 @@ public partial class LocalizationService : ILocalizationService
             //we use no tracking here for performance optimization
             //anyway records are loaded only for read-only operations
             var query = from l in _lsrRepository.Table
-                orderby l.ResourceName
-                where l.LanguageId == languageId
-                select l;
+                        orderby l.ResourceName
+                        where l.LanguageId == languageId
+                        select l;
             query = loadPublicLocales.Value ? query.Where(r => !r.ResourceName.StartsWith(NopLocalizationDefaults.AdminLocaleStringResourcesPrefix)) : query.Where(r => r.ResourceName.StartsWith(NopLocalizationDefaults.AdminLocaleStringResourcesPrefix));
 
             return ResourceValuesToDictionary(await query.ToListAsync());
@@ -417,9 +417,9 @@ public partial class LocalizationService : ILocalizationService
                 , languageId, resourceKey);
 
             var query = from l in _lsrRepository.Table
-                where l.ResourceName == resourceKey
-                      && l.LanguageId == languageId
-                select l.ResourceValue;
+                        where l.ResourceName == resourceKey
+                              && l.LanguageId == languageId
+                        select l.ResourceValue;
 
             var lsr = await _staticCacheManager.GetAsync(key, async () => await query.FirstOrDefaultAsync());
 

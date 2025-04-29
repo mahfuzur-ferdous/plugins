@@ -1,7 +1,7 @@
 ﻿using FluentMigrator.Builders.Create.Table;
 using Nop.Data.Mapping.Builders;
 
-namespace Nop.Plugin.Misc.Suppliers.Areas.Admin.Mapper
+namespace Nop.Plugin.Misc.Suppliers.Areas.Admin.Infrastructure.Mapper
 {
     /// <summary>
     /// Mapping class for Supplier entity

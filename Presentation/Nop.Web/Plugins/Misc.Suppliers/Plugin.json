@@ -2,7 +2,7 @@
   "Group": "Misc",
   "FriendlyName": "Suppliers",
   "SystemName": "Misc.Suppliers",
-  "Version": "4.80.5",
+  "Version": "4.80.7",
   "SupportedVersions": [ "4.80" ],
   "Author": "Ferdous",
   "DisplayOrder": 1,
