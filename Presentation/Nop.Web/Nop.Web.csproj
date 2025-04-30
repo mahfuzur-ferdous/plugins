@@ -50,31 +50,6 @@
     <None Update="Areas\Admin\sitemap.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-
-    <None Update="Plugins\Misc.Suppliers\Views\SupplierAdmin\Create.cshtml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-
-    <None Update="Plugins\Misc.Suppliers\Views\SupplierAdmin\Edit.cshtml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-
-    <None Update="Plugins\Misc.Suppliers\Views\SupplierAdmin\List.cshtml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-
-    <None Update="Plugins\Misc.Suppliers\Views\SupplierAdmin\_CreateOrUpdate.cshtml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-
-    <None Update="Plugins\Misc.Suppliers\Views\SupplierAdmin\_CreateOrUpdate.info.cshtml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-
-    <None Update="Plugins\Misc.Suppliers\Views\SupplierAdmin\_ViewImports.cshtml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
