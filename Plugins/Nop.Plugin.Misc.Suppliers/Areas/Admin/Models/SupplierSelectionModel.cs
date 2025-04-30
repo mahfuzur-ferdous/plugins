@@ -24,4 +24,3 @@ namespace Nop.Plugin.Misc.Suppliers.Areas.Admin.Models
         public IList<SupplierModel> Suppliers { get; set; }
     }
 }
-

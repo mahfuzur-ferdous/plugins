@@ -32,10 +32,7 @@ public class SupplierSelectionViewComponent : NopViewComponent
             Suppliers = suppliers.Select(s => new SupplierModel
             {
                 Id = s.Id,
-                Name = s.Name,
-                Email = s.Email,
-                Description = s.Description,
-                Active = s.Active
+                Name = s.Name
             }).ToList()
         };
 

@@ -10,7 +10,7 @@ namespace Nop.Plugin.Misc.Suppliers.Areas.Admin.Infrastructure
         {
             endpointRouteBuilder.MapControllerRoute(
                 name: "Plugin.Misc.Suppliers.Admin",
-                pattern: "Admin/Suppliers/{action=List}/{id?}",
+                pattern: "Admin/SupplierAdmin/{action=List}/{id?}",
                 defaults: new { controller = "SupplierAdmin", area = "Admin" });
         }
         public int Priority => 0;

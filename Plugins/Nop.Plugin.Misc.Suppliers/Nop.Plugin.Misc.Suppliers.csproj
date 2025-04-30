@@ -15,8 +15,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Areas\Admin\Views\SupplierSelection\Create.cshtml" />
-    <None Remove="Areas\Admin\Views\SupplierSelection\Edit.cshtml" />
+    <None Remove="Areas\Admin\Views\Components\SupplierSelection\Create.cshtml" />
+    <None Remove="Areas\Admin\Views\Components\SupplierSelection\Edit.cshtml" />
     <None Remove="Plugin.json" />
     <None Remove="Areas\Admin\Views\SupplierAdmin\Create.cshtml" />
     <None Remove="Areas\Admin\Views\SupplierAdmin\Edit.cshtml" />
@@ -32,10 +32,10 @@
     <ClearPluginAssemblies Include="$(SolutionDir)\Build\ClearPluginAssemblies.proj" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\SupplierSelection\Create.cshtml">
+    <Content Include="Areas\Admin\Views\Components\SupplierSelection\Create.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\SupplierSelection\Edit.cshtml">
+    <Content Include="Areas\Admin\Views\Components\SupplierSelection\Edit.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Plugin.json">
