@@ -1,0 +1,11 @@
+{
+    "Group": "Payments",
+    "FriendlyName": "PurchaseOrder",
+    "SystemName": "Payments.PurchaseOrder",
+    "Version": "4.80.7",
+    "SupportedVersions": [ "4.80" ],
+    "Author": "Ferdous",
+    "DisplayOrder": 1,
+    "FileName": "Nop.Plugin.Payments.PurchaseOrder.dll",
+    "Description": "This plugin allows you to manage Purchase Order of suppliers"
+}

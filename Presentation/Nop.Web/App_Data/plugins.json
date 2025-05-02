@@ -110,5 +110,10 @@
   ],
   "PluginNamesToUninstall": [],
   "PluginNamesToDelete": [],
-  "PluginNamesToInstall": []
+  "PluginNamesToInstall": [
+    {
+      "Item1": "Payments.PurchaseOrder",
+      "Item2": "9a25f26e-9aa3-4aa2-9f71-412d9ceab060"
+    }
+  ]
 }

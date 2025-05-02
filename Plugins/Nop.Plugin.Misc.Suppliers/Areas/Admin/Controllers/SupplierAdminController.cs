@@ -209,7 +209,7 @@ namespace Nop.Plugin.Misc.Suppliers.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AssignSupplierToProduct(int productId, int supplierId)
         {
-            Console.WriteLine($"======================================= ProductId: {productId}, supplierId: {supplierId}=========================================");
+
             if (productId == 0 || supplierId == 0)
                 return Json(new { success = false, message = "Invalid product or supplier ID" });
 

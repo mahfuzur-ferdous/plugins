@@ -1,4 +1,5 @@
 ﻿using Nop.Core;
+using Nop.Core.Domain.Catalog;
 using Nop.Plugin.Misc.Suppliers.Areas.Admin.Domain;
 
 namespace Nop.Plugin.Misc.Suppliers.Areas.Admin.Services
@@ -69,5 +70,15 @@ namespace Nop.Plugin.Misc.Suppliers.Areas.Admin.Services
         /// <param name="productId">Product identifier</param>
         /// <returns>Supplier identifier, 0 if not found</returns>
         Task<int> GetProductSupplierIdAsync(int productId);
+
+        /// <summary>
+        /// Gets products by supplier identifier
+        /// </summary>
+        /// <param name="supplierId">Supplier identifier</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation
+        /// The task result contains the list of products
+        /// </returns>
+        Task<IList<Product>> GetProductsBySupplierId(int supplierId);
     }
 }

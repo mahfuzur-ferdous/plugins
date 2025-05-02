@@ -88,7 +88,7 @@
     <Compile Update="Areas\Admin\Models\SupplierSearchModel.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="SuppliersPlugin.cs">
+    <Compile Update="SupplierPlugin.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>

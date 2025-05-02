@@ -1,0 +1,50 @@
+﻿@* @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers *@
+@* @addTagHelper *, Nop.Web.Framework *@
+@* @inherits Nop.Web.Framework.Mvc.Razor.NopRazorPage<TModel> *@
+@* @using Nop.Plugin.Misc.Suppliers.Areas.Admin.Models; *@
+@* @model SupplierSelectionModel  *@
+
+@*  <div class="card">  *@
+@*  	<div class="card-header">  *@
+@*  		<div class="card-title">  *@
+@*  			<i class="fas fa-boxes"></i>  *@
+@*  			Product Suppliers  *@
+@*  		</div>  *@
+@*  	</div>  *@
+@*  	<div class="card-body">  *@
+@*  		<div class="form-group row">  *@
+@*  			<div class="col-md-3">  *@
+@*  				<nop-label asp-for="SelectedSupplierId" />  *@
+@*  			</div>  *@
+@*  			<div class="col-md-9">  *@
+@*  				<select asp-for="SelectedSupplierId" asp-items="Model.AvailableSuppliers" multiple="multiple" class="form-control" data-product-id="@Model.ProductId"></select>  *@
+@*  			</div>  *@
+@*  		</div>  *@
+@*  	</div>  *@
+@*  </div>  *@
+
+@*  <script>  *@
+@*  	$(document).ready(function() {  *@
+@*  		// Initialize multiselect  *@
+@*  		$("#@Html.IdFor(model => model.SelectedSupplierId)").select2();  *@
+
+@*  		// Handle save via AJAX  *@
+@*  		// Add this handler to the existing save button  *@
+@*  		$("#product-form").on("submit", function(e) {  *@
+@*  			// We don't prevent default - let the normal save happen  *@
+
+@*  			// But we also send our supplier data via AJAX  *@
+@*  			var productId = @Model.ProductId;  *@
+@*  			var selectedSuppliers = $("#@Html.IdFor(model => model.SelectedSupplierId)").val() || [];  *@
+
+@*  			$.ajax({  *@
+@*  				url: '@Url.Action("SaveProductSuppliers", "Supplier")',  *@
+@*  				type: 'POST',  *@
+@*  				data: {  *@
+@*  					productId: productId,  *@
+@*  					supplierIds: selectedSuppliers  *@
+@*  				}  *@
+@*  			});  *@
+@*  		});  *@
+@*  	});  *@
+@*  </script>  *@

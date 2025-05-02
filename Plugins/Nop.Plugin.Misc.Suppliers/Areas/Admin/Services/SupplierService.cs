@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nop.Core;
 using Nop.Core.Caching;
+using Nop.Core.Domain.Catalog;
 using Nop.Data;
 using Nop.Plugin.Misc.Suppliers.Areas.Admin.Domain;
+using Nop.Web.Areas.Admin.Models.Catalog;
 
 namespace Nop.Plugin.Misc.Suppliers.Areas.Admin.Services
 {
@@ -19,17 +18,23 @@ namespace Nop.Plugin.Misc.Suppliers.Areas.Admin.Services
         private readonly IRepository<Domain.Supplier> _supplierRepository;
         private readonly IRepository<ProductSupplierMapping> _productSupplierMapping;
         private readonly IStaticCacheManager _staticCacheManager;
+        private readonly IRepository<Product> _productRepository;
+        private readonly IRepository<ProductSupplierMapping> _productSupplierMappingRepository;
         #endregion
 
         #region Ctor
         public SupplierService(
             IRepository<Domain.Supplier> supplierRepository,
             IRepository<ProductSupplierMapping> productSupplierMapping,
-            IStaticCacheManager staticCacheManager)
+            IStaticCacheManager staticCacheManager,
+            IRepository<Product> productRepository,
+            IRepository<ProductSupplierMapping> productSupplierMappingRepository)
         {
             _supplierRepository = supplierRepository;
             _productSupplierMapping = productSupplierMapping;
             _staticCacheManager = staticCacheManager;
+            _productRepository = productRepository;
+            _productSupplierMappingRepository = productSupplierMappingRepository;
         }
         #endregion
 
@@ -214,6 +219,42 @@ namespace Nop.Plugin.Misc.Suppliers.Areas.Admin.Services
 
             return existing?.SupplierId ?? 0;
         }
+
+
+        /// <summary>
+        /// Gets products by supplier identifier
+        /// </summary>
+        /// <param name="supplierId">Supplier identifier</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation
+        /// The task result contains the list of products
+        /// </returns>
+        public virtual async Task<IList<Product>> GetProductsBySupplierId(int supplierId)
+        {
+            if (supplierId == 0)
+                return new List<Product>();
+
+            // Get product-supplier mappings
+            var productSupplierMappings = await _productSupplierMappingRepository.GetAllAsync(query =>
+            {
+                return query.Where(mapping => mapping.SupplierId == supplierId);
+            });
+
+            if (!productSupplierMappings.Any())
+                return new List<Product>();
+
+            // Get product IDs from mappings
+            var productIds = productSupplierMappings.Select(mapping => mapping.ProductId).ToArray();
+
+            // Get products by IDs
+            var products = await _productRepository.GetAllAsync(query =>
+            {
+                return query.Where(p => productIds.Contains(p.Id));
+            });
+
+            return products;
+        }
+
         #endregion
     }
 }
